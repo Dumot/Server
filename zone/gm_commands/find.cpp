@@ -1,5 +1,6 @@
 #include "../client.h"
 #include "find/aa.cpp"
+#include "find/account.cpp"
 #include "find/body_type.cpp"
 #include "find/bot.cpp"
 #include "find/bug_category.cpp"
@@ -38,6 +39,7 @@ void command_find(Client *c, const Seperator *sep)
 
 	std::vector<Cmd> commands = {
 		Cmd{.cmd = "aa", .u = "aa [Search Criteria]", .fn = FindAA, .a = {"#findaa"}},
+		Cmd{.cmd = "account", .u = "character [Search Criteria]", .fn = FindAccount, .a = {"#findaccount"}},
 		Cmd{.cmd = "body_type", .u = "body_type [Search Criteria]", .fn = FindBodyType, .a = {"#findbodytype"}},
 		Cmd{.cmd = "bug_category", .u = "bug_category [Search Criteria]", .fn = FindBugCategory, .a = {"#findbugcategory"}},
 		Cmd{.cmd = "character", .u = "character [Search Criteria]", .fn = FindCharacter, .a = {"#findcharacter"}},
