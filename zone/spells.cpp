@@ -317,7 +317,7 @@ bool Mob::CastSpell(uint16 spell_id, uint16 target_id, CastingSlot slot,
 
 	target_id = GetSpellImpliedTargetID(spell_id, target_id);
 
-	SetEntityVariable(fmt::format("SpellGemHint_%d", spell_id), fmt::to_string(static_cast<uint32>(slot)));
+	SetEntityVariable(fmt::format("SpellGemHint_{}", spell_id), fmt::to_string(static_cast<uint32>(slot)));
 
 	if (!IsValidSpell(spell_id) ||
 		casting_spell_id ||
@@ -1460,7 +1460,7 @@ void Mob::InterruptSpell(uint16 message, uint16 color, uint16 spellid)
 	}
 
 	ZeroCastingVars();	// resets all the state keeping stuff
-	DeleteEntityVariable(fmt::format("SpellGemHint_%d", spellid));
+	DeleteEntityVariable(fmt::format("SpellGemHint_{}", spellid));
 
 	LogSpells("Spell [{}] has been interrupted", spellid);
 
@@ -1929,7 +1929,7 @@ void Mob::CastedSpellFinished(uint16 spell_id, uint32 target_id, CastingSlot slo
 	}
 
 	// Clean up target hints just in case.
-	DeleteEntityVariable(fmt::format("SpellTargetHint_%d", spell_id));
+	DeleteEntityVariable(fmt::format("SpellTargetHint_{}", spell_id));
 
 	// we're done casting, now try to apply the spell
 	bool spell_success = SpellFinished(spell_id, spell_target, slot, mana_used, inventory_slot, resist_adjust, false,-1, 0xFFFFFFFF, 0, true);
@@ -1950,7 +1950,7 @@ void Mob::CastedSpellFinished(uint16 spell_id, uint32 target_id, CastingSlot slo
 	}
 
 	// Clean up target hints after riders are done
-	DeleteEntityVariable(fmt::format("SpellTargetHint_%d", spell_id));
+	DeleteEntityVariable(fmt::format("SpellTargetHint_{}", spell_id));
 
 	if(!spell_success)
 	{
@@ -2060,7 +2060,7 @@ void Mob::CastedSpellFinished(uint16 spell_id, uint32 target_id, CastingSlot slo
 	// there should be no casting going on now
 	ZeroCastingVars();
 
-	DeleteEntityVariable(fmt::format("SpellGemHint_%d", spell_id));
+	DeleteEntityVariable(fmt::format("SpellGemHint_{}", spell_id));
 
 	// set the rapid recast timer for next time around
 	// Why do we have this? It mostly just causes issues when things are working correctly
@@ -4329,9 +4329,7 @@ bool Mob::SpellOnTarget(
 		}
 	}
 
-	if (GetEntityVariable(fmt::format("SpellTargetHint_%d", spell_id)).empty()) {
-		SetEntityVariable(fmt::format("SpellTargetHint_%d", spell_id), fmt::to_string(spelltar->GetID()));
-	}
+	SetEntityVariable(fmt::format("SpellTargetHint_{}", spell_id), fmt::to_string(spelltar->GetID()));
 
 	EQApplicationPacket *action_packet = nullptr, *message_packet = nullptr;
 	float spell_effectiveness;

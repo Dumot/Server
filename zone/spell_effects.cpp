@@ -6897,8 +6897,8 @@ bool Mob::TryTriggerOnCastProc(uint16 focusspellid, uint16 spell_id, uint16 proc
 			LogSpells("Sympathetic Proc found new target with Implied Targeting: [{}]", new_target->GetCleanName());
 		}
 
-		if (!GetEntityVariable(fmt::format("SpellTargetHint_%d", spell_id)).empty()) {
-			Mob * hint_target = entity_list.GetMob(Strings::ToUnsignedInt(GetEntityVariable(fmt::format("SpellTargetHint_%d", spell_id))));
+		if (!GetEntityVariable(fmt::format("SpellTargetHint_{}", spell_id)).empty()) {
+			Mob * hint_target = entity_list.GetMob(Strings::ToUnsignedInt(GetEntityVariable(fmt::format("SpellTargetHint_{}", spell_id))));
 			if (hint_target) {
 				proc_target = hint_target;
 				LogSpells("Sympathetic Proc target found a target hint to [{}]", hint_target->GetCleanName());
